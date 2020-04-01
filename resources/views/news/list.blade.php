@@ -1,8 +1,5 @@
 @extends('layouts.main')
 @section('title', 'Новости')
-@section('page-title')
-    <h1>@yield('title')</h1>
-@endsection
 @section('content')
     <section class="news">
         @foreach ($news as $item)

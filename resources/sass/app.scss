@@ -1,8 +1,15 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Normalize Styles
+@import "~normalize.css/normalize.css";
+
+// Styles
+@import "styles";
