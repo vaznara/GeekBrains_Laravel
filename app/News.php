@@ -63,36 +63,40 @@ class News extends Model
         ],
     ];
 
-    public static function getCategories() {
+    public static function getCategories()
+    {
         return static::$categories;
     }
 
-    public static function getNewsByCat($catName) {
-
-        $chosenNews = [];
-        $catId = 0;
+    public static function getCategoryIdByName($catName)
+    {
+        $categoryId = 0;
 
         foreach (self::$categories as $item) {
-            if($item['uri_name'] == $catName) {
-                $catId = $item['id'];
+            if ($item['uri_name'] == $catName) {
+                $categoryId = $item['id'];
             }
         }
 
+        return $categoryId;
+    }
+
+    public static function getNewsByCat($catName)
+    {
+
+        $catId = self::getCategoryIdByName($catName);
+        $chosenNews = [];
+
         foreach (self::$news as $item) {
-            if($item['category_id'] == $catId) {
+            if ($item['category_id'] == $catId) {
                 $chosenNews[] = $item;
             }
         }
-
         return $chosenNews;
     }
 
-    public static function getSingleNews($id) {
-        foreach (static::$news as $singleNews) {
-            if($singleNews['id'] == $id) {
-                return $singleNews;
-            }
-        }
-        return null;
+    public static function getSingleNews($id)
+    {
+        return static::$news[$id];
     }
 }

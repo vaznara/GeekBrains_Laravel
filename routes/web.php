@@ -11,15 +11,18 @@
 |
 */
 
-Route::get('/', [
-    'uses' => 'HomeController@index',
-    'as' => 'Home'
-]);
+Route::get('/', 'HomeController@index')->name('Home');
+Route::get('/about', 'AboutController@index')->name('About');
 
-Route::get('/about', [
-    'uses' => 'AboutController@index',
-    'as' => 'About'
-]);
+Route::get('/login', function () {
+    return view('login');
+})->name('Login');
+
+/*
+|-----------------------------------/
+| Группа роутов новостей
+|-----------------------------------/
+*/
 
 Route::group([
     'prefix' => 'news',
@@ -27,13 +30,15 @@ Route::group([
     'as' => 'news.'
 ], function () {
     Route::get('/categories', 'NewsController@index')->name('News');
-    Route::get('/categories/{catname?}', 'NewsController@getByCat')->name('Categories');
+    Route::get('/categories/{catname}', 'NewsController@getByCat')->name('Categories');
     Route::get('/{id}', 'NewsController@getOne')->name('SingleNews');
 });
 
-Route::get('/login', function () {
-    return view('login');
-})->name('Login');
+/*
+|-----------------------------------/
+| Группа роутов для админа
+|-----------------------------------/
+*/
 
 Route::group([
     'prefix' => 'admin',
@@ -41,7 +46,5 @@ Route::group([
     'as' => 'admin.'
 ], function() {
     Route::get('/', 'AdminController@index')->name('Admin');
-    Route::get('/addnews', function() {
-        return view('admin.add-news');
-    })->name('addnews');
+    Route::get('/addnews', 'NewsController@add')->name('addnews');
 });
