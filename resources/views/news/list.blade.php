@@ -1,5 +1,7 @@
 @extends('layouts.main')
+
 @section('title', 'Новости')
+
 @section('content')
     <section class="news">
         @foreach ($news as $item)

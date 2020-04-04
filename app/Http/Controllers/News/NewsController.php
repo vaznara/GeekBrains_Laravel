@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\News;
 
-use App\News;
+use App\Models\News\Categories;
+use App\Models\News\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
     public function index() {
-        return view('news.index', ['categories' => News::getCategories()]);
+        return view('news.index', ['categories' => Categories::getCategories()]);
     }
 
     public function getOne($id) {

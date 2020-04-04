@@ -46,5 +46,5 @@ Route::group([
     'as' => 'admin.'
 ], function() {
     Route::get('/', 'AdminController@index')->name('Admin');
-    Route::get('/addnews', 'NewsController@add')->name('addnews');
+    Route::match(['get', 'post'], '/addnews', 'NewsController@add')->name('news.add');
 });

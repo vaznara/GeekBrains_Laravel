@@ -13,7 +13,7 @@
     @section('navigation')
         @include('navigation')
     @show
-    <div class="container content-container">
+    <div class="container h-100 d-flex align-items-center justify-content-center w-100">
         @yield('content')
     </div>
 </div>

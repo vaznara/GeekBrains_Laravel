@@ -1,30 +1,34 @@
 @extends('layouts.main')
+
 @section('title', 'Добавить новость')
+
 @section('navigation')
     @include('admin.navigation')
 @endsection
+
 @section('content')
     <div class="container">
         <div class="form-wrap">
-            <form class="login-form">
+            <form class="login-form" method="POST" action="{{ route('admin.news.add') }}">
+                @csrf
                 <div class="input-wrap">
                     <p>Заголовок:</p>
-                    <textarea name="Text1" rows="2"></textarea>
+                    <input type="text" name="news-header" value="{{ old('news-header') }}">
                 </div>
                 <div class="input-wrap">
                     <p>Категория:</p>
                     <select name="category-selector">
-                        <option value="politics">Политика</option>
-                        <option value="sport">Спорт</option>
-                        <option value="economy">Экономика</option>
+                        @foreach($categories as $item)
+                            <option @if ($item['uri_name'] == old('category-selector')) selected @endif value="{{ $item['uri_name'] }}">{{ $item['name'] }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="input-wrap">
                     <p>Тело новости:</p>
-                    <textarea name="Text1" rows="10"></textarea>
+                    <textarea name="news-body" rows="10">{{ old('news-body') }}</textarea>
                 </div>
                 <div class="btn-wrap">
-                    <button class="form-btn">Добавить новость</button>
+                    <button type="submit" class="btn">Добавить новость</button>
                 </div>
             </form>
         </div>
