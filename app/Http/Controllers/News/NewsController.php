@@ -9,15 +9,17 @@ use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
 {
+    private CONST IMG_PATH = '/storage/news/images/';
+
     public function index() {
-        return view('news.index', ['categories' => Categories::getCategories()]);
+        return view('news.index', ['categories' => Categories::getCategories(), 'news' => News::getNews(), 'img_path' => self::IMG_PATH]);
     }
 
     public function getOne($id) {
-        return view('news.single-news', ['singleNews' => News::getSingleNews($id)]);
+        return view('news.single-news', ['singleNews' => News::getSingleNews($id), 'img_path' => self::IMG_PATH]);
     }
 
     public function getByCat($cat) {
-        return view('news.list', ['news' => News::getNewsByCat($cat)]);
+        return view('news.index', ['categories' => Categories::getCategories(), 'news' => News::getNewsByCat($cat), 'img_path' => self::IMG_PATH]);
     }
 }

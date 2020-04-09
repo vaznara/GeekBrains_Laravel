@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Models\News;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class Categories extends Model
@@ -9,20 +11,13 @@ class Categories extends Model
 
     public static function getCategories()
     {
-        return json_decode(Storage::get('files_db/categories'), true);
+        $categories = DB::table('categories')->get();
+        return $categories;
     }
 
     public static function getCategoryIdByName($catName)
     {
-        $categoryId = 0;
-        $categories = static::getCategories();
-
-        foreach ($categories as $item) {
-
-            if ($item['uri_name'] == $catName) {
-                $categoryId = $item['id'];
-            }
-        }
-        return $categoryId;
+        $catId = DB::table('categories')->where('uri_name', '=', $catName)->value('id');
+        return $catId;
     }
 }

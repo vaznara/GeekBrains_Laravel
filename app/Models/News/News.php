@@ -1,50 +1,56 @@
 <?php
 
 namespace App\Models\News;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class News extends Model
 {
+
+    public $imgCatalog;
+    public $table;
+
     public static function getNews()
     {
-        return json_decode(Storage::get('files_db/news'), true);
+        $newsData = DB::table('news')
+            ->leftJoin('categories', 'news.category_id', '=', 'categories.id')
+            ->select('news.*', 'categories.name', 'categories.uri_name')
+            ->get();
+        return $newsData;
     }
 
     public static function getNewsByCat($catName)
     {
-
         $catId = Categories::getCategoryIdByName($catName);
-        $news = self::getNews();
-        $chosenNews = [];
+        $newsData = DB::table('news')
+            ->join('categories', 'news.category_id', '=', 'categories.id')
+            ->where('category_id', '=', $catId)
+            ->get();
 
-        foreach ($news as $item) {
-            if ($item['category_id'] == $catId) {
-                $chosenNews[] = $item;
-            }
-        }
-        return $chosenNews;
+        return $newsData;
     }
 
     public static function getSingleNews($id)
     {
-        return static::getNews()[$id];
+        return DB::table('news')->find($id);
     }
 
     public static function add($request)
     {
-            $news = News::getNews();
-            $requestParams = $request->only(['news-header', 'news-body', 'category-selector']);
 
-            $news[array_key_last($news) + 1] = [
-                "id" => array_key_last($news) + 1,
-                "title" => $requestParams['news-header'],
-                "body" => $requestParams['news-body'],
-                "category_id" => Categories::getCategoryIdByName($requestParams['category-selector'])
-            ];
+        $request->file('news_image')->store('public/news/images');
 
-            $news = json_encode($news);
-            Storage::put('files_db/news', $news);
+        $data = [
+            "title" => $request->news_title,
+            "body" => $request->news_body,
+            "category_id" => Categories::getCategoryIdByName($request->news_category),
+            "image" => $request->news_image->hashName()
+        ];
+
+        return DB::table('news')->insertGetId($data);
     }
 }

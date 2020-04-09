@@ -3,5 +3,7 @@
 @section('title', 'Главная страница')
 
 @section('content')
-    <p class="message">Добро пожаловать на мой первый сайт, который создан с помощью Laravel.</p>
+    <div class="alert alert-secondary" role="alert">
+        Добро пожаловать на мой первый сайт, который создан с помощью Laravel.
+    </div>
 @endsection
