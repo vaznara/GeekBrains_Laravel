@@ -64,6 +64,9 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'links' => [
+            public_path('news/img') => storage_path('app/public/news/images')
+        ]
     ],
 
 ];

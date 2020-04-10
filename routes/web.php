@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +32,7 @@ Route::group([
     'namespace' => 'News',
     'as' => 'news.'
 ], function () {
-    Route::get('/categories', 'NewsController@index')->name('News');
+    Route::get('/', 'NewsController@index')->name('News');
     Route::get('/categories/{catname}', 'NewsController@getByCat')->name('Categories');
     Route::get('/{id}', 'NewsController@getOne')->name('SingleNews');
 });
@@ -40,11 +43,17 @@ Route::group([
 |-----------------------------------/
 */
 
+Route::group(array('before' => 'auth'), function ()
+{
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
     'as' => 'admin.'
-], function() {
-    Route::get('/', 'AdminController@index')->name('Admin');
-    Route::get('/addnews', 'NewsController@add')->name('addnews');
+], function () {
+    Route::match(['get', 'post'], '/addnews', 'NewsController@add')->name('news.add');
 });
+});
+
+//Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');

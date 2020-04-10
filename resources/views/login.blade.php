@@ -1,5 +1,7 @@
 @extends('layouts.main')
+
 @section('title', 'Вход')
+
 @section('content')
     <div class="container">
         <div class="form-wrap">
@@ -12,7 +14,7 @@
                     <input class="login-input" type="password" name="password" placeholder="Пароль">
                 </div>
                 <div class="btn-wrap">
-                    <button class="form-btn">Вход</button>
+                    <button class="form-btn btn">Вход</button>
                 </div>
             </form>
         </div>

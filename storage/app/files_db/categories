@@ -1,0 +1,17 @@
+{
+    "1": {
+        "id": 1,
+        "name": "Политика",
+        "uri_name": "politics"
+    },
+    "2": {
+        "id": 2,
+        "name": "Спорт",
+        "uri_name": "sport"
+    },
+    "3": {
+        "id": 3,
+        "name": "Экономика",
+        "uri_name": "economy"
+    }
+}
