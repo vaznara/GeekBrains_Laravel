@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('Home');
 Route::get('/about', 'AboutController@index')->name('About');
 
-Route::get('/login', function () {
-    return view('login');
-})->name('Login');
+//Route::get('/login', function () {
+//    return view('login');
+//})->name('Login');
 
 /*
 |-----------------------------------/
@@ -33,8 +33,8 @@ Route::group([
     'as' => 'news.'
 ], function () {
     Route::get('/', 'NewsController@index')->name('News');
-    Route::get('/categories/{catname}', 'NewsController@getByCat')->name('Categories');
-    Route::get('/{id}', 'NewsController@getOne')->name('SingleNews');
+    Route::get('/categories/{category}', 'NewsController@getNewsByCategoryName')->name('Categories');
+    Route::get('/{news}', 'NewsController@show')->name('SingleNews');
 });
 
 /*
@@ -43,17 +43,17 @@ Route::group([
 |-----------------------------------/
 */
 
-Route::group(array('before' => 'auth'), function ()
-{
-Route::group([
-    'prefix' => 'admin',
-    'namespace' => 'Admin',
-    'as' => 'admin.'
-], function () {
-    Route::match(['get', 'post'], '/addnews', 'NewsController@add')->name('news.add');
-});
-});
+    Route::group([
+        'prefix' => 'admin',
+        'namespace' => 'Admin',
+        'as' => 'admin.'
+    ], function () {
+        Route::resource('news', 'NewsController')->except([
+            'index', 'show'
+        ])->middleware('auth');
+        Route::resource('category', 'CategoryController')->except([
+            'show'
+        ])->middleware('auth');
+    });
 
-//Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();

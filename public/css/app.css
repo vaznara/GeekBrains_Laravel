@@ -11250,6 +11250,11 @@ a {
   transition: 0.2s all;
 }
 
+button {
+  background: none;
+  border: none;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -11283,6 +11288,16 @@ ul {
 
 .content {
   padding: 50px 0;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background-color: #333;
+  color: #fff;
 }
 
 .message {
@@ -11345,5 +11360,77 @@ select {
 
 .news-nav {
   margin-bottom: 20px;
+}
+
+.pagination {
+  margin-top: 30px;
+  border-radius: initial;
+}
+
+.pagination .page-link {
+  color: #333;
+  background-color: #fff;
+  border: none;
+  transition: 0.3s all;
+}
+
+.pagination .page-link:hover {
+  color: #fff;
+  background-color: #333;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #333;
+  border-color: #333;
+}
+
+.news-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-icons {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: space-evenly;
+}
+
+.admin-icons-news {
+  display: flex;
+  flex: 0 auto;
+}
+
+.admin-icons-news a {
+  padding: 0 20px;
+}
+
+.laravel_table {
+  margin-top: 50px;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.laravel_table td,
+th {
+  padding: 10px;
+  border: 1px solid #333;
+  overflow: hidden;
+  word-break: normal;
+}
+
+.laravel_table .table_cell {
+  border-color: #333333;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.laravel_table .table_cell-header {
+  font-weight: bold;
+  background-color: #333;
+  color: #fff;
+  border-color: #333;
+  text-align: center;
+  vertical-align: middle;
 }
 

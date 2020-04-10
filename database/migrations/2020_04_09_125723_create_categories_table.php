@@ -21,6 +21,8 @@ class CreateCategoriesTable extends Migration
             $table->string('uri_name')
                 ->nullable(false)
                 ->comment('Название категории для URI');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
