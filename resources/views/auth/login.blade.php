@@ -4,7 +4,7 @@
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <p>Для входа используйте следующие данные:</p>
         <p><strong>E-Mail:</strong> admin@email.com</p>
-        <p><strong>Пароль:</strong> 1234</p>
+        <p><strong>Пароль:</strong> 123</p>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -22,7 +22,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="@if(old('email')) {{ old('email') }} @else {{ 'admin@email.com' }} @endif" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">Пароль</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" value="123" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

@@ -13,4 +13,15 @@ class News extends Model
     public function category() {
         return $this->belongsTo(Category::class);
     }
+
+    public function getRules() {
+
+        return [
+            'title' => 'required|min:5|max:50',
+            'body' => 'required',
+            'category_id' => 'required|numeric',
+            'image' => 'mimes:jpeg,bmp,png,jpg|max:1000'
+            //TODO сделать isPrivate
+        ];
+    }
 }
