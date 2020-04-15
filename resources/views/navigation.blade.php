@@ -15,7 +15,7 @@
             <li class="nav-item {{ (strpos(Route::currentRouteName(), 'news.News') === 0) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('news.News') }}">Новости</a>
             </li>
-{{--            @auth--}}
+            @auth
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown"
@@ -23,19 +23,19 @@
                         Админка
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('admin.news.add') }}">Добавить новость</a>
-
+                        <a class="dropdown-item" href="{{ route('admin.news.create') }}">Добавить новость</a>
+                        <a class="dropdown-item" href="{{ route('admin.category.index') }}">Редактор категорий</a>
                     </div>
                 </li>
-{{--            @endauth--}}
+            @endauth
         </ul>
         @guest
             <ul class="navbar-nav my-2 my-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('Login') }}">Регистрация</a>
+                    <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('Login') }}">Вход</a>
+                    <a class="nav-link" href="{{ route('login') }}">Вход</a>
                 </li>
             </ul>
         @else
@@ -50,7 +50,7 @@
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
+                            Выход
                         </a>
                     </div>
                 </li>
