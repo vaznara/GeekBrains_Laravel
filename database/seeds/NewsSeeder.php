@@ -14,9 +14,5 @@ class NewsSeeder extends Seeder
     public function run()
     {
         factory(News::class, 50)->create();
-
-//        factory(News::class, 50)->create()->each(function ($news) {
-//            $news->categories()->save(factory(Category::class)->make());
-//        });
     }
 }

@@ -11393,6 +11393,7 @@ select {
   display: flex;
   flex: 1 0 auto;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .admin-icons-news {

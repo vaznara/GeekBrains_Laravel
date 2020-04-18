@@ -3,17 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use Illuminate\Support\Str;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Exception;
-
+use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('form_validator:\App\Category', ['only' => ['store','update']]);
+    }
 
     /**
-     * Display a listing of the resource.
-     *
+     * Отображаем список категорий
      * @return \Illuminate\View\View
      */
     public function index()
@@ -22,8 +26,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * Отображаем форму для создания категорий
      * @return \Illuminate\View\View
      */
     public function create()
@@ -32,10 +35,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * Передаем данные в метод Save() для сохранения данных в БД
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -44,10 +46,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Category $category
-     * @return \Illuminate\View\View
+     * Отображаем форму для редактирования категорий
+     * @param Category $category
+     * @return View
      */
     public function edit(Category $category)
     {
@@ -55,11 +56,11 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Category $category
-     * @return \Illuminate\Http\RedirectResponse
+     * Передаем обновленные данные в метод Save() для сохранения данных в БД
+     * @param Request $request
+     * @param Category $category
+     * @return RedirectResponse
+     * @throws \Exception
      */
     public function update(Request $request, Category $category)
     {
@@ -68,11 +69,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Category $category
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws Exception
+     * Удаляем категорию
+     * @param Category $category
+     * @return RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Category $category)
     {
@@ -80,18 +80,24 @@ class CategoryController extends Controller
         return redirect()->route('admin.category.index')->with(['success' => 'Категория успешно удалена']);
     }
 
-    public function save($request, $category = null)
+
+    /**
+     * Валидируем полученные данные и сохраняем в БД.
+     * @param Category $category
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function save(Request $request, $category = null)
     {
 
         if (!$category) {
             $category = new Category();
         }
 
-        $validatedData = $request->validate($category->getRules());
+        $category->fill($request->all());
+        $category->uri_name = Str::slug($request['name']);
+        $category->save();
 
-        $category->fill($validatedData)->save();
         return $category->id;
-
     }
-
 }

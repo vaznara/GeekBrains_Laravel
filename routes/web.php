@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('Home');
 Route::get('/about', 'AboutController@index')->name('About');
 
-//Route::get('/login', function () {
-//    return view('login');
-//})->name('Login');
-
 /*
 |-----------------------------------/
 | Группа роутов новостей
@@ -33,7 +29,7 @@ Route::group([
     'as' => 'news.'
 ], function () {
     Route::get('/', 'NewsController@index')->name('News');
-    Route::get('/categories/{category}', 'NewsController@getNewsByCategoryName')->name('Categories');
+    Route::get('/categories/{uri_name}', 'NewsController@getNewsByCategoryName')->name('Categories');
     Route::get('/{news}', 'NewsController@show')->name('SingleNews');
 });
 
@@ -43,17 +39,19 @@ Route::group([
 |-----------------------------------/
 */
 
-    Route::group([
-        'prefix' => 'admin',
-        'namespace' => 'Admin',
-        'as' => 'admin.'
-    ], function () {
-        Route::resource('news', 'NewsController')->except([
-            'index', 'show'
-        ])->middleware('auth');
-        Route::resource('category', 'CategoryController')->except([
-            'show'
-        ])->middleware('auth');
-    });
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+    'as' => 'admin.',
+    'middleware' => ['auth', 'is_admin']
+], function () {
+    Route::resource('news', 'NewsController')->except(['index', 'show']);
+    Route::resource('category', 'CategoryController')->except(['show']);
+    Route::resource('user', 'UserController')->except(['create', 'show', 'store']);
+});
 
 Auth::routes();
+
+Route::get('password/change', 'Auth\ChangePasswordController@showChangePasswordForm')
+    ->name('password.change');
+Route::patch('password/update', 'Auth\ChangePasswordController@passwordUpdate')->name('password.update');

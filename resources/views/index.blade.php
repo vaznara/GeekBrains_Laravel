@@ -6,4 +6,7 @@
     <div class="alert alert-secondary" role="alert">
         Добро пожаловать на мой первый сайт, который создан с помощью Laravel.
     </div>
+    <div>
+
+    </div>
 @endsection
