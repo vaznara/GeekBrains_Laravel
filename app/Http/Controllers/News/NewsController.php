@@ -30,8 +30,10 @@ class NewsController extends Controller
         $categories = Category::query()->get();
         $categoryId = Category::query()->select(['id'])->where('uri_name', $cat)->value('id');
 
-        if (Category::find($categoryId)) {
-            $newsByCategory = Category::find($categoryId)->getNews()
+        $category = Category::find($categoryId);
+
+        if ($category) {
+            $newsByCategory = $category->getNews()
                 ->leftJoin('categories', 'news.category_id', '=', 'categories.id')
                 ->select('news.*', 'categories.uri_name', 'categories.name', 'deleted_at')
                 ->paginate(9);
@@ -42,5 +44,4 @@ class NewsController extends Controller
         return redirect()->route('news.News')->with(['error' => 'категорий не существует']);
 
     }
-
 }

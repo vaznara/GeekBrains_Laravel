@@ -14,21 +14,21 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        return response(view('admin.category.index', ['categories' => Category::all()]), 200);
+        return view('admin.category.index', ['categories' => Category::all()]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        return response(view('admin.category.form'), 200);
+        return view('admin.category.form');
     }
 
     /**
@@ -39,9 +39,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->fill($request->all())->save();
-
+        $this->save($request);
         return redirect()->route('admin.category.index')->with(['success' => 'Категория успешно добавлена!']);
     }
 
@@ -49,11 +47,11 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Category $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Category $category)
     {
-        return response(view('admin.category.form', ['category' => $category]), 200);
+        return view('admin.category.form', ['category' => $category]);
     }
 
     /**
@@ -65,7 +63,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->fill($request->all())->save();
+        $this->save($request, $category);
         return redirect()->route('admin.category.index')->with(['success' => 'Категория успешно изменена!']);
     }
 
@@ -74,10 +72,26 @@ class CategoryController extends Controller
      *
      * @param \App\Category $category
      * @return \Illuminate\Http\RedirectResponse
+     * @throws Exception
      */
     public function destroy(Category $category)
     {
         $category->delete();
         return redirect()->route('admin.category.index')->with(['success' => 'Категория успешно удалена']);
     }
+
+    public function save($request, $category = null)
+    {
+
+        if (!$category) {
+            $category = new Category();
+        }
+
+        $validatedData = $request->validate($category->getRules());
+
+        $category->fill($validatedData)->save();
+        return $category->id;
+
+    }
+
 }

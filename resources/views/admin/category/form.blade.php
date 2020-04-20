@@ -16,23 +16,36 @@
                 @isset($category)
                     @method('PATCH')
                 @endisset
-                <div class="input-wrap">
+                <div class="input-wrap @error('name') is-invalid @enderror">
                     <label for="name">Название:</label>
+
                     @isset($category)
-                        <input type="text" name="name" id="name" value="{{ $category->name }}">
+                        <input type="text" name="name" id="name" value="{{ $category->name }}" class="@error('name') is-invalid @enderror">
                     @endisset
+
                     @empty($category)
-                        <input type="text" name="name" id="name" value="{{ old('title') }}">
+                        <input type="text" name="name" id="name" value="{{ old('name') }}" class="@error('name') is-invalid @enderror">
                     @endempty
+
+                    @error('name')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
-                <div class="input-wrap">
+                <div class="input-wrap @error('uri_name') is-invalid @enderror">
                     <label for="uri_name">Название для URL:</label>
                     @isset($category)
-                        <input type="text" name="uri_name" id="uri_name" value="{{ $category->uri_name }}">
+                        <input type="text" name="uri_name" id="uri_name" value="{{ $category->uri_name }}" class="@error('uri_name') is-invalid @enderror">
                     @endisset
                     @empty($category)
-                        <input type="text" name="uri_name" id="uri_name" value="{{ old('uri_name') }}">
+                        <input type="text" name="uri_name" id="uri_name" value="{{ old('uri_name') }}" class="@error('uri_name') is-invalid @enderror">
                     @endempty
+                    @error('uri_name')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
                 <div class="btn-wrap">
                     <button type="submit" class="btn">Сохранить</button>

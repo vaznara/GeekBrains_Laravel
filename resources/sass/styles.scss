@@ -176,10 +176,6 @@ input, textarea, select {
     word-break: normal;
 }
 
-.laravel_table th {
-
-}
-
 .laravel_table .table_cell {
     border-color: #333333;
     text-align: left;
@@ -193,4 +189,14 @@ input, textarea, select {
     border-color: $main-color;
     text-align: center;
     vertical-align: middle;
+}
+
+.is-invalid {
+    input, textarea {
+    border: 1px solid $error;
+    }
+}
+
+.is-invalid {
+    color: $error;
 }

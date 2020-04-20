@@ -11434,3 +11434,12 @@ th {
   vertical-align: middle;
 }
 
+.is-invalid input,
+.is-invalid textarea {
+  border: 1px solid #e3342f;
+}
+
+.is-invalid {
+  color: #e3342f;
+}
+
