@@ -23,19 +23,19 @@
                 <td class="table_cell"><a target="_blank" href="{{ route('news.Categories', $category->uri_name) }}">{{ route('news.Categories', $category->uri_name) }}</a></td>
                 <td class="table_cell" style="text-align:center;">
                     <a href="{{ route('admin.category.edit', $category) }}">
-                        <img src="{{ asset('storage/edit.svg') }}" alt="edit" style="max-width: 32px;width: 100%;">
+                        <img src="{{ asset('storage/edit.svg') }}" alt="edit" style="width: 25px;height: auto;">
                     </a>
                 </td>
                 <td class="table_cell" style="text-align:center;">
                     <button type="button" data-toggle="modal" name="delete-btn" data-target="#confirm"
                             data-route="{{ route('admin.category.destroy', $category) }}">
-                        <img src="{{ asset('storage/delete.svg') }}" alt="delete" style="max-width: 32px;width: 100%; ">
+                        <img src="{{ asset('storage/delete.svg') }}" alt="delete" style="width: 25px;height: auto;">
                     </button>
                 </td>
             </tr>
         @endforeach
     </table>
-    @include('components.modal', ['modaltext' => 'Вы уверены, что хотите удалить данную категорию?'])
+    @include('components.modal', ['modaltext' => 'Вы уверены, что хотите удалить данную категорию? <br /> также будет удалены все новосто данной категорий.'])
 @endsection
 @section('custom-scripts')
     <script>

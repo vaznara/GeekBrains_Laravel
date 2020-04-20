@@ -81,6 +81,10 @@ ul {
     background-color: $main-color;
 }
 
+.dropdown-menu {
+    left: initial;
+    right: 0;
+}
 
 .form-wrap {
     max-width: 500px;
@@ -161,6 +165,7 @@ input, textarea, select {
     a {
         padding: 0 20px;
     }
+    align-items: center;
 }
 
 .laravel_table {
@@ -171,8 +176,8 @@ input, textarea, select {
 }
 
 .laravel_table td, th {
-    padding: 10px;
-    border: 1px solid $main-color;
+    padding: 20px 10px;
+    //border: 1px solid $main-color;
     overflow: hidden;
     word-break: normal;
 }
@@ -200,4 +205,23 @@ input, textarea, select {
 
 .is-invalid {
     color: $error;
+}
+
+.social__icon-img {
+    max-width: 64px;
+    border-radius: 50%;
+    transition: 0.3s all;
+}
+
+.social__icon-img:hover {
+    opacity: 0.9;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.social__login-wrap {
+    margin-top: 50px;
+}
+
+.social__icons-header {
+    line-height: 2;
 }

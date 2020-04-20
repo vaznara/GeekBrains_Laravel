@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id'
+        'name', 'email', 'password', 'role_id', 'social_avatar_uri', 'email_verified_at'
     ];
 
     /**
@@ -44,9 +44,21 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    public function socialUsers() {
+        return $this->hasMany(SocialUser::class);
+    }
+
     public function hasRole($role)
     {
         if ($this->roles->slug == $role) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isSuper()
+    {
+        if ($this->is_admin == 1) {
             return true;
         }
         return false;

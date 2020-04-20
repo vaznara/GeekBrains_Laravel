@@ -27,7 +27,7 @@ class UserController extends Controller
     {
         $users = User::query()
             ->leftJoin('roles', 'users.role_id', '=', 'roles.id')
-            ->select('users.*', 'roles.name as role')
+            ->select('users.*', 'roles.name as role', 'roles.slug as slug')
             ->paginate(9);
 
         return view('admin.user.index', ['users' => $users]);
@@ -43,6 +43,12 @@ class UserController extends Controller
         if($user->id == 1) {
             return redirect()->route('admin.user.index')->with(['error' => 'Редактирование главного админа запрещено']);
         }
+
+        // Если пользователь не супер админ и пытается редактировать админа - редиректим на список пользователей с ошибкой
+        if(!Auth::user()->isSuper() && $user->hasRole('admin')) {
+            return redirect()->route('admin.user.index')->with(['error' => 'У вас нет прав доступа на редактирование админа']);
+        }
+
         $roles = Role::query()->get();
         return view('admin.user.form', ['user' => $user, 'roles' => $roles]);
     }
@@ -80,7 +86,12 @@ class UserController extends Controller
             return redirect()->route('admin.user.index')->with(['error' => 'Невозможно удалить самого себя']);
         }
 
+        // Если пользователь не супер админ и пытается редактировать админа - редиректим на список пользователей с ошибкой
+        if(!Auth::user()->isSuper() && $user->hasRole('admin')) {
+            return redirect()->route('admin.user.index')->with(['error' => 'Вы не можете удалить админа']);
+        }
+
         $user->delete();
-        return redirect()->route('admin.user.index')->with(['success' => 'Пользовтель удален']);
+        return redirect()->route('admin.user.index')->with(['success' => 'Пользователь удален']);
     }
 }

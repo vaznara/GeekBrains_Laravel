@@ -72,6 +72,26 @@
                             </div>
                         </div>
                     </form>
+                    <div class="social__login-wrap d-flex align-items-center flex-column">
+                    <h4 class="social__icons-header">Или войти с помощью:</h4>
+                        <div class="social__icons d-flex justify-content-around w-50">
+                        <div class="social__icon-wrap">
+                            <a href="{{ route('SocialLogin', 'facebook') }}" class="social__icon-link">
+                                <img src="{{ asset('storage/fb_login.png') }}" alt=""
+                                                                                                  class="social__icon-img"></a>
+                        </div>
+                        <div class="social__icon-wrap">
+                            <a href="{{ route('SocialLogin', 'github') }}" class="social__icon-link">
+                                <img src="{{ asset('storage/github_login.png') }}" alt=""
+                                                                                                  class="social__icon-img"></a>
+                        </div>
+                        <div class="social__icon-wrap">
+                            <a href="{{ route('SocialLogin', 'google') }}" class="social__icon-link">
+                                <img src="{{ asset('storage/google_login.png') }}" alt=""
+                                                                                                  class="social__icon-img"></a>
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

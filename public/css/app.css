@@ -11321,6 +11321,11 @@ ul {
   background-color: #333;
 }
 
+.dropdown-menu {
+  left: initial;
+  right: 0;
+}
+
 .form-wrap {
   max-width: 500px;
   margin: 0 auto;
@@ -11399,6 +11404,7 @@ select {
 .admin-icons-news {
   display: flex;
   flex: 0 auto;
+  align-items: center;
 }
 
 .admin-icons-news a {
@@ -11414,8 +11420,7 @@ select {
 
 .laravel_table td,
 th {
-  padding: 10px;
-  border: 1px solid #333;
+  padding: 20px 10px;
   overflow: hidden;
   word-break: normal;
 }
@@ -11442,5 +11447,24 @@ th {
 
 .is-invalid {
   color: #e3342f;
+}
+
+.social__icon-img {
+  max-width: 64px;
+  border-radius: 50%;
+  transition: 0.3s all;
+}
+
+.social__icon-img:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.social__login-wrap {
+  margin-top: 50px;
+}
+
+.social__icons-header {
+  line-height: 2;
 }
 
