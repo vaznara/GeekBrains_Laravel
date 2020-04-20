@@ -11,15 +11,26 @@ class Category extends Model
 
     protected $fillable = ['name', 'uri_name'];
 
-    public function getNews() {
+    public function news() {
         return $this->hasMany(News::class);
     }
 
-    public function getRules() {
-
+    public function rules() {
         return [
             'name' => 'required|min:5|max:100',
-            'uri_name' => 'required|min:5|max:100'
         ];
     }
+
+    public static function boot() {
+        parent::boot();
+
+        /*
+         * При удалении категории удаляем и новости.
+         */
+        static::deleting(function($category) {
+            $category->news()->delete();
+        });
+    }
+
+    //TODO сделать валидацию с помощью посредника
 }

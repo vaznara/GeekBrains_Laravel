@@ -13,14 +13,14 @@
         <tr>
             <th class="table_cell-header">ID</th>
             <th class="table_cell-header">Название категории</th>
-            <th class="table_cell-header">Название для URL</th>
+            <th class="table_cell-header">Ссылка</th>
             <th class="table_cell-header" colspan="2">Действие</th>
         </tr>
         @foreach($categories as $category)
             <tr>
                 <td class="table_cell" style="text-align:center;">{{ $category->id }}</td>
                 <td class="table_cell">{{ $category->name }}</td>
-                <td class="table_cell">{{ $category->uri_name }}</td>
+                <td class="table_cell"><a target="_blank" href="{{ route('news.Categories', $category->uri_name) }}">{{ route('news.Categories', $category->uri_name) }}</a></td>
                 <td class="table_cell" style="text-align:center;">
                     <a href="{{ route('admin.category.edit', $category) }}">
                         <img src="{{ asset('storage/edit.svg') }}" alt="edit" style="max-width: 32px;width: 100%;">

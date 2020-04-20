@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <p>Для входа используйте следующие данные:</p>
-        <p><strong>E-Mail:</strong> admin@email.com</p>
+        <p>Данные обычного пользователя:</p>
+        <p><strong>E-Mail:</strong> user@email.com</p>
         <p><strong>Пароль:</strong> 123</p>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>

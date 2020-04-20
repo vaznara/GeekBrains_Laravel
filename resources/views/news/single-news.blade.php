@@ -13,7 +13,8 @@
     </div>
     <div class="news-btns">
         <a href="{{ route('news.News') }}" class="btn">назад к новостям</a>
-        @auth
+
+        @role('admin')
             <div class="admin-icons-news">
                 <a href="{{ route('admin.news.edit', $singleNews) }}"><img src="{{ asset('storage/edit.svg') }}"
                                                                            alt="edit"
@@ -23,9 +24,11 @@
                          style="max-width: 32px;width: 100%; height: 100%;">
                 </button>
             </div>
-        @endauth
+        @endrole
+
     </div>
-    @auth
+
+    @role('admin')
         <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirmLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -50,5 +53,5 @@
                 </div>
             </div>
         </div>
-    @endauth
+    @endrole
 @endsection

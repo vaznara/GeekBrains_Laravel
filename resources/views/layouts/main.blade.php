@@ -11,11 +11,14 @@
 </head>
 <body>
 <div class="container-fluid">
+
     @section('navigation')
         @include('navigation')
     @show
+
     <div class="container">
         <div class="content">
+
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('success') }}
@@ -24,6 +27,7 @@
                     </button>
                 </div>
             @endif
+
             @if (session('error'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('error') }}
@@ -32,11 +36,16 @@
                     </button>
                 </div>
             @endif
+
             @yield('content')
+
         </div>
     </div>
 </div>
+
 <script src="{{ asset('js/app.js') }}"></script>
+
 @yield('custom-scripts')
+
 </body>
 </html>

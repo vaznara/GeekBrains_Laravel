@@ -2,13 +2,15 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role_id'
     ];
 
     /**
@@ -36,4 +38,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function hasRole($role)
+    {
+        if ($this->roles->slug == $role) {
+            return true;
+        }
+        return false;
+    }
+
+    public function rules()
+    {
+        return [
+            'password' => 'nullable|confirmed',
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'role_id' => 'required'
+        ];
+    }
 }
