@@ -56,7 +56,8 @@
                                 <label for="role_id" class="col-md-4 col-form-label text-md-right">Роль:</label>
 
                                 <div class="col-md-6">
-                                    <select name="role_id" id="role_id" class="form-control @error('role_id') is-invalid @enderror">
+                                    <select name="role_id" id="role_id"
+                                            class="form-control @error('role_id') is-invalid @enderror">
                                         @foreach($roles as $role)
                                             <option @if ($role->id == $user->role_id) selected
                                                     @endif value="{{ $role->id }}">{{ $role->name }}</option>
@@ -64,47 +65,79 @@
                                     </select>
                                 </div>
                             </div>
+                            <br/><br/>
+                            <div class="form-group row" style="text-align: center;">
+                                <div class="col-md-12">
+                                    <a href="" class="btn btn-secondary" id="password-btn">
+                                        Сменить пароль
+                                    </a>
+                                </div>
+                            </div>
 
-                    <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">Новый пароль</label>
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">Новый пароль</label>
 
-                        <div class="col-md-6">
-                            <input id="password" type="password"
-                                   class="form-control @error('password') is-invalid @enderror" name="password"
-                                   autocomplete="new-password">
+                                <div class="col-md-6">
+                                    <input id="password" type="password"
+                                           class="form-control @error('password') is-invalid @enderror" name="password"
+                                           autocomplete="new-password" readonly>
 
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                            @enderror
-                        </div>
-                    </div>
+                                    @enderror
+                                </div>
+                            </div>
 
-                    <div class="form-group row">
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Подтвердите
-                            пароль</label>
+                            <div class="form-group row">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Подтвердите
+                                    пароль</label>
 
-                        <div class="col-md-6">
-                            <input id="password-confirm" type="password" class="form-control"
-                                   name="password_confirmation" autocomplete="new-password">
-                        </div>
-                    </div>
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control"
+                                           name="password_confirmation" autocomplete="new-password" readonly>
+                                </div>
+                            </div>
 
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                Обновить
-                            </button>
-                            <a href="{{ route('admin.user.index') }}" class="btn btn-secondary">
-                                Отмена
-                            </a>
-                        </div>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Обновить
+                                    </button>
+                                    <a href="{{ route('admin.user.index') }}" class="btn btn-secondary">
+                                        Отмена
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+@endsection
+@section('custom-scripts')
+<script>
+    let passwordChangeButton = document.querySelector('#password-btn');
+
+    passwordChangeButton.addEventListener('click', function (e) {
+
+        e.preventDefault();
+
+        let passwordField = document.querySelector('#password');
+        let passwordConfirmField = document.querySelector('#password-confirm');
+
+        passwordField.removeAttribute('readonly');
+        // passwordField.setAttribute('required', '');
+
+        passwordConfirmField.removeAttribute('readonly');
+        // passwordConfirmField.setAttribute('required', '');
+
+        e.currentTarget.className = '';
+        e.currentTarget.classList.add('btn', 'btn-primary');
+
+    });
+
+</script>
 @endsection

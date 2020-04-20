@@ -48,10 +48,15 @@ Route::group([
     Route::resource('news', 'NewsController')->except(['index', 'show']);
     Route::resource('category', 'CategoryController')->except(['show']);
     Route::resource('user', 'UserController')->except(['create', 'show', 'store']);
+    Route::get('parser', 'ParserController@index')->name('parser');
 });
 
 Auth::routes();
 
 Route::get('password/change', 'Auth\ChangePasswordController@showChangePasswordForm')
     ->name('password.change');
-Route::patch('password/update', 'Auth\ChangePasswordController@passwordUpdate')->name('password.update');
+Route::patch('password/update', 'Auth\ChangePasswordController@passwordUpdate')
+    ->name('password.update');
+
+Route::get('/auth/{socialNetwork}', 'SocialLoginController@login')->name('SocialLogin');
+Route::get('/auth/{socialNetwork}/response', 'SocialLoginController@response')->name('SocialResponse');

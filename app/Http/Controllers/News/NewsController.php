@@ -21,6 +21,7 @@ class NewsController extends Controller
         $news = News::query()
             ->leftJoin('categories', 'news.category_id', '=', 'categories.id')
             ->select('news.*', 'categories.uri_name', 'categories.name')
+            ->orderByDesc('published_at')
             ->paginate(9);
         $categories = Category::query()->get();
 
@@ -59,6 +60,7 @@ class NewsController extends Controller
             $newsByCategory = $category->news()
                 ->leftJoin('categories', 'news.category_id', '=', 'categories.id')
                 ->select('news.*', 'categories.uri_name', 'categories.name')
+                ->orderByDesc('published_at')
                 ->paginate(9);
 
             return view('news.index', ['categories' => $categories, 'news' => $newsByCategory, 'img_path' => News::IMG_PATH]);

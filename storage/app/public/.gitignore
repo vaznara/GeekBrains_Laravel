@@ -1,2 +1,5 @@
 *
 !.gitignore
+!delete.svg
+!edit.svg
+!*_login.png

@@ -22,7 +22,7 @@
                 <td class="table_cell" style="text-align:center;">{{ $user->id }}</td>
                 <td class="table_cell">{{ $user->name }}</td>
                 <td class="table_cell">{{ $user->email }}</td>
-                <td class="table_cell">@if($user->email_verified_at === null)нет@elseда@endif</td>
+                <td class="table_cell">@if($user->email_verified_at === null) {{ __('нет') }} @else {{ __('да') }} @endif</td>
                 <td class="table_cell">{{ $user->role }}</td>
                 <td class="table_cell" style="text-align:center;">
                     <a href="{{ route('admin.user.edit', $user) }}">

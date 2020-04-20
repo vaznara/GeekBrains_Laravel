@@ -19,7 +19,14 @@ class ChangePasswordController extends Controller
     public function passwordUpdate(Request $request)
     {
 
-        $request->validate(['password' => 'confirmed|required']);
+        $request->validate([
+            'password' => 'confirmed|required',
+            'old_password' => 'required'
+        ]);
+
+        if(!Hash::check($request->old_password, Auth::user()->getAuthPassword())) {
+            return redirect()->back()->with(['error' => 'Неверный пароль']);
+        }
 
         $user = Auth::user();
 

@@ -3,7 +3,8 @@
 /public/storage
 /storage/*.key
 /vendor
-.env
+.env.dusk.local
+.env.example
 .env.backup
 .phpunit.result.cache
 Homestead.json
@@ -11,4 +12,5 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /.idea/
-readme.md
+readme_old.md
+.editorconfig

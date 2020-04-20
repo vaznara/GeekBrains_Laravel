@@ -27,6 +27,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('admin.news.create') }}">Добавить новость</a>
+                    <a class="dropdown-item" href="{{ route('admin.parser') }}">Спарсить новости</a>
                     <a class="dropdown-item" href="{{ route('admin.category.index') }}">Редактор категорий</a>
                     <a class="dropdown-item" href="{{ route('admin.user.index') }}">Пользователи</a>
                 </div>
@@ -45,10 +46,14 @@
             </ul>
         @else
             <ul class="navbar-nav my-2 my-lg-0">
+{{--                <li></li>--}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
+                        @isset(Auth::user()->social_avatar_uri)
+                            <img style="width: 32px;height: auto" src="{{ Auth::user()->social_avatar_uri }}" alt="{{ Auth::user()->name }}">&nbsp;&nbsp;&nbsp;
+                        @endisset
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">

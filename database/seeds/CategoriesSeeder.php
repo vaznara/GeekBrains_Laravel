@@ -14,16 +14,8 @@ class CategoriesSeeder extends Seeder
     {
         DB::table('categories')->insert([
             [
-                'name' => 'Спорт',
-                'uri_name' => 'sport'
-            ],
-            [
-                'name' => 'Политика',
-                'uri_name' => 'politics'
-            ],
-            [
-                'name' => 'Экономика',
-                'uri_name' => 'economy'
+                'name' => 'По умолчанию',
+                'uri_name' => 'default'
             ]
         ]);
     }

@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>{{ $modaltext }}</p>
+                <p>{!! $modaltext !!}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>

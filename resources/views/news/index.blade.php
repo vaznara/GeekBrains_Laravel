@@ -21,8 +21,13 @@
 
         @foreach ($news as $item)
             <div class="card col-4 border-0">
-                <div class="card-img-top"
-                     style="background: url({{ $item->image ? $img_path . $item->image : $img_path . 'default.jpg' }}) no-repeat 50% 50%; background-size: cover; height: 200px;"></div>
+                @if($item->image)
+                    <div class="card-img-top" style="background: url({{ $img_path . $item->image }}) no-repeat 50% 50%; background-size: cover; height: 200px;"></div>
+                @elseif($item->img_uri)
+                    <div class="card-img-top" style="background: url({{ $item->img_uri }}) no-repeat 50% 50%; background-size: cover; height: 200px;"></div>
+                @else
+                    <div class="card-img-top" style="background: url({{ $img_path . 'default.jpg' }}) no-repeat 50% 50%; background-size: cover; height: 200px;"></div>
+                @endif
                 <div class="card-body">
                     <h5 class="card-title">{{ $item->title }} <a href="{{ route('news.Categories', $item->uri_name) }}">
                             <span class="badge badge-dark">{{ $item->name }}</span></a></h5>
@@ -30,16 +35,16 @@
                     <div class="news-btns">
                         <a href="{{ route('news.SingleNews', $item) }}" class="btn btn-primary">Подробнее</a>
                         @role('admin')
-                            <div class="admin-icons">
-                                <a href="{{ route('admin.news.edit', $item) }}"><img
-                                        src="{{ asset('storage/edit.svg') }}" alt="edit"
-                                        style="width: 25px; height: auto;"></a>
-                                <button type="button" data-toggle="modal" data-target="#confirm"
-                                        data-route="{{ route('admin.news.destroy', $item) }}">
-                                    <img src="{{ asset('storage/delete.svg') }}" alt="edit"
-                                         style="width: 25px; height: auto;">
-                                </button>
-                            </div>
+                        <div class="admin-icons">
+                            <a href="{{ route('admin.news.edit', $item) }}"><img
+                                    src="{{ asset('storage/edit.svg') }}" alt="edit"
+                                    style="width: 25px; height: auto;"></a>
+                            <button type="button" data-toggle="modal" data-target="#confirm"
+                                    data-route="{{ route('admin.news.destroy', $item) }}">
+                                <img src="{{ asset('storage/delete.svg') }}" alt="edit"
+                                     style="width: 25px; height: auto;">
+                            </button>
+                        </div>
                         @endrole
                     </div>
                 </div>
